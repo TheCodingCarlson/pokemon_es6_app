@@ -52,7 +52,7 @@ function buildTeam(pokemons) {
 
 	getPromiseData(team)
 		.then(pokemonData => {
-			console.log(pokemonData);
+			displayPokemon(pokemonData);
 		});
 };
 
@@ -91,3 +91,13 @@ $('form').on('submit', function(e) {
 			getDoubleDamagePokemon(result);
 		});
 });
+
+function displayPokemon(pokemons) {
+	pokemons.forEach(pokemon => {
+		var $container = $('<div>').addClass('pokemon');
+		var $image = $('<img>').attr('src', `http://pokeapi.co/media/img/${pokemon.id}.png`);
+		var $title = $('<h2>').text(pokemon.name);
+		$container.append($image, $title);
+		$('.pokemon-container').append($container);
+	});
+};
