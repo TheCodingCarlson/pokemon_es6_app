@@ -8,6 +8,15 @@ const fetchOptions = {
 	mode: 'cors'
 };
 
+// helper function to flatten 2 dimensional arrays
+const flatten = (a,b) => [...a,...b];
+
+
+// helper function to get random pokemon
+function getRandomPokemon(pokemonArray) {
+	return pokemonArray[ Math.floor(Math.random() * pokemonArray.length) ];
+};
+
 // helper function to convert data to json using promises
 function getPromiseData(promisesArray) {
 	return new Promise((resolve, reject) => {
@@ -23,22 +32,53 @@ function getPromiseData(promisesArray) {
 	});
 };
 
-// get the double damage types of pokemon - must us spread to flatten our 2 dimensional array
+// function to build pokemon team
+function buildTeam(pokemons) {
+	let team = [];
+
+	pokemons = pokemons.map(pokemon => {
+		return pokemon.pokemon;
+	})
+	.reduce(flatten, [])
+	.map(pokemon => pokemon.pokemon);
+
+	for(let i = 0; i < 6; i++) {
+		team.push(getRandomPokemon(pokemons));
+	}
+
+	team = team.map(pokemon => {
+		return fetch(pokemon.url, fetchOptions);
+	});
+
+	getPromiseData(team)
+		.then(pokemonData => {
+			console.log(pokemonData);
+		});
+};
+
+// get the double damage types of pokemon then call fetch with each types url
 function getDoubleDamagePokemon(pokemonTypes) {
 	pokemonTypes = pokemonTypes.map(types => {
 		return types.damage_relations.double_damage_from;
 	})
-	.reduce((a,b) => [...a,...b], []);
+	.reduce(flatten, [])
+	.map(type => {
+		return fetch(type.url, fetchOptions)
+	});
 
-
-	console.log(pokemonTypes);
+	getPromiseData(pokemonTypes)
+		.then(results => {
+			buildTeam(results);
+		});
 };
 
-// grab types from the form, account for extra spaces
+// on submit form function
 $('form').on('submit', function(e) {
+	// prevent default
 	e.preventDefault();
+
+	// set types to user input - account for extra spaces
 	let types = $('input[type=text]').val().replace(/\s/g, '').split(',');
-	console.log(types);
 
 	// map over the trainer calls, and call fetch with each element
 	let trainerTypeCalls = types.map(elem => {
@@ -48,15 +88,6 @@ $('form').on('submit', function(e) {
 	// call helper function and convert our data
 	getPromiseData(trainerTypeCalls)
 		.then(result => {
-			console.log(result);
 			getDoubleDamagePokemon(result);
 		});
 });
-
-
-
-
-
-
-
-
