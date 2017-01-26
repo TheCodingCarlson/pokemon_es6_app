@@ -1,1 +1,1 @@
-# pokemon_es6_app
+# Pokemon ES6 App
