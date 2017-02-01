@@ -11,7 +11,6 @@ const fetchOptions = {
 // helper function to flatten 2 dimensional arrays
 const flatten = (a,b) => [...a,...b];
 
-
 // helper function to get random pokemon
 function getRandomPokemon(pokemonArray) {
 	return pokemonArray[ Math.floor(Math.random() * pokemonArray.length) ];
@@ -46,6 +45,8 @@ function buildTeam(pokemons) {
 		team.push(getRandomPokemon(pokemons));
 	}
 
+	console.log('Team:', team);
+
 	team = team.map(pokemon => {
 		return fetch(pokemon.url, fetchOptions);
 	});
@@ -73,12 +74,12 @@ function getDoubleDamagePokemon(pokemonTypes) {
 };
 
 // on submit form function
-$('form').on('submit', function(e) {
+$('.team-form').on('submit', function(e) {
 	// prevent default
 	e.preventDefault();
 
 	// set types to user input - account for extra spaces
-	let types = $('input[type=text]').val().replace(/\s/g, '').split(',');
+	let types = $('#team-search').val().replace(/\s/g, '').split(',');
 
 	// map over the trainer calls, and call fetch with each element
 	let trainerTypeCalls = types.map(elem => {
@@ -92,9 +93,19 @@ $('form').on('submit', function(e) {
 		});
 });
 
+$('.search-form').on('submit', function(e) {
+	e.preventDefault();
+
+	let term = $('#specific-search').val();
+
+	fetch(`http://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
+		.then(res => res.json())
+		.then(data => console.log(data))
+});
+
 function displayPokemon(pokemons) {
 	pokemons.forEach(pokemon => {
-		var $container = $('<div>').addClass('pokemon');
+		var $container = $('<div>').addClass('pokemon card');
 		var $image = $('<img>').attr('src', `http://pokeapi.co/media/img/${pokemon.id}.png`);
 		var $title = $('<h2>').text(pokemon.name);
 		$container.append($image, $title);
