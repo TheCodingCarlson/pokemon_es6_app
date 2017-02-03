@@ -13,7 +13,8 @@ const flatten = (a,b) => [...a,...b];
 
 // helper function to get random pokemon
 function getRandomPokemon(pokemonArray) {
-	return pokemonArray[ Math.floor(Math.random() * pokemonArray.length) ];
+	console.log(pokemonArray[ Math.floor(Math.random() * pokemonArray.length)]);
+	return pokemonArray[ Math.floor(Math.random() * pokemonArray.length)];
 };
 
 // helper function to convert data to json using promises
@@ -41,11 +42,11 @@ function buildTeam(pokemons) {
 	.reduce(flatten, [])
 	.map(pokemon => pokemon.pokemon);
 
-	for(let i = 0; i < 6; i++) {
+	while(team.length < 6) {
 		team.push(getRandomPokemon(pokemons));
 	}
 
-	console.log('Team:', team);
+	// console.log('Team:', team);
 
 	team = team.map(pokemon => {
 		return fetch(pokemon.url, fetchOptions);
@@ -73,9 +74,38 @@ function getDoubleDamagePokemon(pokemonTypes) {
 		});
 };
 
-// on submit form function
+// create card elements with Pokemon data
+function createPokemonElements(pokemon, page) {
+	var $container = $('<div>').addClass('pokemon');
+	var $image = $('<img>').attr('src', `http://pokeapi.co/media/img/${pokemon.id}.png`);
+	var $title = $('<h2>').text(pokemon.name);
+
+	$container.append($image, $title);
+	$('.pokemon-container').append($container);
+
+	if(page === 'search') {
+		var $baseExp = $('<h6>').text('Base Exp: ' + pokemon.base_experience);
+		var $items = pokemon.held_items.forEach(item => {
+			return $('<p>').text(item.item.name);
+		});
+		console.log($items);
+
+		$container.append($baseExp);
+	}
+};
+
+
+// display Pokemon function
+function displayPokemon(pokemons) {
+	pokemons.forEach(pokemon => {
+		console.log(pokemon);
+		createPokemonElements(pokemon, 'team');
+	});
+};
+
+// on submit team build function
 $('.team-form').on('submit', function(e) {
-	// prevent default
+
 	e.preventDefault();
 
 	// set types to user input - account for extra spaces
@@ -93,6 +123,7 @@ $('.team-form').on('submit', function(e) {
 		});
 });
 
+// on submit search function
 $('.search-form').on('submit', function(e) {
 	e.preventDefault();
 
@@ -100,15 +131,8 @@ $('.search-form').on('submit', function(e) {
 
 	fetch(`http://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
 		.then(res => res.json())
-		.then(data => console.log(data))
+		.then(pokemon =>  {
+			console.log(pokemon);
+			createPokemonElements(pokemon, 'search');
+		});
 });
-
-function displayPokemon(pokemons) {
-	pokemons.forEach(pokemon => {
-		var $container = $('<div>').addClass('pokemon card');
-		var $image = $('<img>').attr('src', `http://pokeapi.co/media/img/${pokemon.id}.png`);
-		var $title = $('<h2>').text(pokemon.name);
-		$container.append($image, $title);
-		$('.pokemon-container').append($container);
-	});
-};
