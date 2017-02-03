@@ -26,4 +26,10 @@ app.get('/search', function(req,res) {
 	res.render('search');
 });
 
-app.listen(3000);
+app.get('/about', function(req,res) {
+	res.render('about');
+});
+
+app.listen(3000, function() {
+	console.log('Piiikkkaaaccchhhuuu!!!!');
+});

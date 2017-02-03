@@ -24,10 +24,57 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
   src: url(../fonts/pokemon_solid.ttf);
 }
 
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes dotFadeIn {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 100
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.dot {
+	opacity: 0;
+}
+
+#dot-one {
+	animation: dotFadeIn 2.5s infinite;
+}
+
+#dot-two {
+	animation: dotFadeIn 2.5s 1s infinite;
+}
+
+#dot-three {
+	animation: dotFadeIn 2.5s 1.5s infinite;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	background-color: var(--blue);
+	color: var(--yellow);
 }
 
 h1 {
@@ -35,6 +82,7 @@ h1 {
 	letter-spacing: 5px;
 	color: var(--yellow);
 	text-shadow: -2px 0 var(--red), 0 2px var(--red), 2px 0 var(--red), 0 -2px var(--red);
+	margin-bottom: 30px;
 }
 
 h2 {
@@ -42,11 +90,74 @@ h2 {
 	color: var(--red);
 }
 
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px 30px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.nav-link {
+	text-decoration: none;
+	color: var(--yellow);
+	transition: color 0.5s ease;
+}
+
+.nav-links > a:hover {
+	color: var(--red);
+}
+
+.nav-links > a {
+	font-family: 'Bahiana', cursive;
+	font-size: 1.2rem;
+	padding-right: 30px;
+}
+
+.brand img {
+	max-width: 50px;
+	height: auto;
+}
+
+.brand img:hover {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.container {
+	padding: 25px;
+	text-align: center;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+form p {
+	max-width: 300px;
+	margin: 15px auto;
+}
+
+input {
+	background: transparent;
+	border: none;
+	font-family: 'Open Sans', sans-serif;
+	border-bottom: 2px solid var(--red); 
+	color: var(--yellow);
+	width: 30%;
+	margin-top: 20px;
+}
+
+input:focus {
+	outline: none;
+	transition: all ease 0.5s;
+	border-bottom: 2px solid var(--yellow);
+}
+
 .pokemon-container {
+	margin: 50px 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	flex-wrap: wrap;
 }
 
 .pokemon {
@@ -55,5 +166,15 @@ h2 {
 	background: rgba(255,255,255,0.2);
 	border-radius: 4px;
 	border: 2px solid var(--yellow);
-	max-width: 200px;
+	max-width: 230px;
+	margin: 0 15px;
+}
+
+.btn {
+	text-decoration: none;
+	background: var(--yellow);
+	color: var(--red);
+	padding: 0.5rem 2rem;
+	border-radius: 4px;
+	border: 2px solid var(--red);
 }

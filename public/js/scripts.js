@@ -1,5 +1,9 @@
 'use strict';
 
+// hide loading messages
+
+// document.getElementById('loading').style.display = 'none';
+
 // fetch options object
 const fetchOptions = {
 	headers: {
@@ -81,6 +85,7 @@ function createPokemonElements(pokemon, page) {
 	var $title = $('<h2>').text(pokemon.name);
 
 	$container.append($image, $title);
+
 	$('.pokemon-container').append($container);
 
 	if(page === 'search') {
@@ -88,12 +93,12 @@ function createPokemonElements(pokemon, page) {
 		var $items = pokemon.held_items.forEach(item => {
 			return $('<p>').text(item.item.name);
 		});
-		console.log($items);
 
+		console.log($items);
 		$container.append($baseExp);
+
 	}
 };
-
 
 // display Pokemon function
 function displayPokemon(pokemons) {
@@ -132,7 +137,6 @@ $('.search-form').on('submit', function(e) {
 	fetch(`http://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
 		.then(res => res.json())
 		.then(pokemon =>  {
-			console.log(pokemon);
 			createPokemonElements(pokemon, 'search');
 		});
 });

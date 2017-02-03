@@ -2,10 +2,12 @@
 <html>
 <head>
 
-	<title>Pokemon App</title>
+	<!-- Required Meta Tag -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	 <!-- Materialize Compiled and minified CSS -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"> -->
+  <!-- Title -->
+	<title>Pokemon App</title>
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Bahiana|Open+Sans" rel="stylesheet">
@@ -15,15 +17,18 @@
 </head>
 
 <body>
+
+	{{> navbar }}
+	
 	<div class="container">
+		<h1>ES6 Pokemon App</h1>
+		{{!-- <h1>< Back</h1> --}}
 		{{{ body }}}
+		
 	</div>
 
 	<!-- jQuery -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-
-	<!-- Materialize Compiled and minified JavaScript -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script> -->
 
 	<!-- Custom JS -->
 	<script type="text/javascript" src="/../js/scripts.js"></script>
