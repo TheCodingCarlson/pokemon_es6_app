@@ -16,12 +16,12 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 @font-face {
 	font-family: 'Pokemon Hollow';
-  src: url(/fonts/pokemon_hollow.ttf);
+  src: url(../fonts/pokemon_hollow.ttf);
 }
 
 @font-face {
 	font-family: 'Pokemon Solid';
-  src: url(/fonts/pokemon_solid.ttf);
+  src: url(../fonts/pokemon_solid.ttf);
 }
 
 body {
@@ -36,7 +36,6 @@ h1 {
 	color: var(--yellow);
 	text-shadow: -2px 0 var(--red), 0 2px var(--red), 2px 0 var(--red), 0 -2px var(--red);
 }
-
 
 h2 {
 	font-family: 'Bahiana', cursive;
