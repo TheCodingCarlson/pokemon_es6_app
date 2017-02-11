@@ -1,8 +1,7 @@
 'use strict';
 
 // hide loading messages
-
-// document.getElementById('loading').style.display = 'none';
+document.getElementById('loading').style.display = 'none';
 
 // fetch options object
 const fetchOptions = {
@@ -17,8 +16,8 @@ const flatten = (a,b) => [...a,...b];
 
 // helper function to get random pokemon
 function getRandomPokemon(pokemonArray) {
-	console.log(pokemonArray[ Math.floor(Math.random() * pokemonArray.length)]);
-	return pokemonArray[ Math.floor(Math.random() * pokemonArray.length)];
+	let randomPokemon = pokemonArray[ Math.floor(Math.random() * pokemonArray.length)];
+	return randomPokemon;
 };
 
 // helper function to convert data to json using promises
@@ -58,6 +57,8 @@ function buildTeam(pokemons) {
 
 	getPromiseData(team)
 		.then(pokemonData => {
+			document.getElementById('loading').style.display = 'none';
+			$('#team-search').val('');
 			displayPokemon(pokemonData);
 		});
 };
@@ -81,7 +82,7 @@ function getDoubleDamagePokemon(pokemonTypes) {
 // create card elements with Pokemon data
 function createPokemonElements(pokemon, page) {
 	var $container = $('<div>').addClass('pokemon');
-	var $image = $('<img>').attr('src', `http://pokeapi.co/media/img/${pokemon.id}.png`);
+	var $image = $('<img>').attr('src', pokemon.sprites.front_default);
 	var $title = $('<h2>').text(pokemon.name);
 
 	$container.append($image, $title);
@@ -89,13 +90,22 @@ function createPokemonElements(pokemon, page) {
 	$('.pokemon-container').append($container);
 
 	if(page === 'search') {
-		var $baseExp = $('<h6>').text('Base Exp: ' + pokemon.base_experience);
-		var $items = pokemon.held_items.forEach(item => {
-			return $('<p>').text(item.item.name);
+		var $baseExp = $('<h5>').text('Base Exp: ' + pokemon.base_experience);
+		var $height = $('<h5>').text('Height: ' + pokemon.height);
+		var $weight = $('<h5>').text('Weight: ' + pokemon.weight);
+
+		var $itemsList = $('<ul>').addClass('items-list');
+		var $abilitiesList = $('<ul>').addClass('abilites-list');
+
+		var $items = pokemon.held_items.map(item => {
+			$itemsList.append(`<li>${item.item.name}</li>`);
 		});
 
-		console.log($items);
-		$container.append($baseExp);
+		var $abilities = pokemon.abilities.map(ability => {
+			$abilitiesList.append(`<li>${ability.ability.name}</li>`);
+		});
+
+		$container.append($baseExp, $height, $weight, $itemsList, $abilitiesList);
 
 	}
 };
@@ -103,15 +113,17 @@ function createPokemonElements(pokemon, page) {
 // display Pokemon function
 function displayPokemon(pokemons) {
 	pokemons.forEach(pokemon => {
-		console.log(pokemon);
 		createPokemonElements(pokemon, 'team');
 	});
 };
 
 // on submit team build function
 $('.team-form').on('submit', function(e) {
-
 	e.preventDefault();
+
+	$('.pokemon-container').empty();
+
+	document.getElementById('loading').style.display = 'block';
 
 	// set types to user input - account for extra spaces
 	let types = $('#team-search').val().replace(/\s/g, '').split(',');
@@ -124,6 +136,13 @@ $('.team-form').on('submit', function(e) {
 	// call helper function and convert our data
 	getPromiseData(trainerTypeCalls)
 		.then(result => {
+	
+			if(result[0].hasOwnProperty('detail')) {
+				$('.pokemon-container').append('<h2>There are no Pokemon with that type</h2>');
+				document.getElementById('loading').style.display = 'none';
+				$('#team-search').val('');
+			}
+
 			getDoubleDamagePokemon(result);
 		});
 });
@@ -132,11 +151,24 @@ $('.team-form').on('submit', function(e) {
 $('.search-form').on('submit', function(e) {
 	e.preventDefault();
 
-	let term = $('#specific-search').val();
+	$('.pokemon-container').empty();
+
+	document.getElementById('loading').style.display = 'block';
+
+	let term = $('#specific-search').val().toLowerCase();
 
 	fetch(`http://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
-		.then(res => res.json())
+		.then(res =>  {
+
+			if(res.status === 404) {
+				$('.pokemon-container').append('<h2>There are no Pokemon with that name</h2>');
+			}
+
+			document.getElementById('loading').style.display = 'none';
+			$('#specific-search').val('');
+			return res.json();
+		})
 		.then(pokemon =>  {
 			createPokemonElements(pokemon, 'search');
-		});
+		}).catch(err => console.log(err));
 });
