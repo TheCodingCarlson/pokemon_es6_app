@@ -123,7 +123,7 @@ li {
 .nav-links > a {
 	font-family: 'Bahiana', cursive;
 	font-size: 1.2rem;
-	padding-right: 30px;
+	padding-right: 10px;
 }
 
 .brand img {
@@ -154,7 +154,7 @@ input {
 	font-family: 'Open Sans', sans-serif;
 	border-bottom: 2px solid var(--red); 
 	color: var(--yellow);
-	width: 30%;
+	width: 100%;
 	margin-top: 20px;
 }
 
@@ -181,6 +181,18 @@ input:focus {
 	margin: 10px 15px;
 }
 
+.pokemon-sprite {
+	margin: 10px;
+	height: 100px;
+	width: 100px;
+}
+
+.pokemon-sprite.no-pic {
+	height: 70px;
+ 	width: 70px;
+  margin: 15px 0;
+}
+
 .btn {
 	text-decoration: none;
 	background: var(--yellow);
@@ -188,4 +200,13 @@ input:focus {
 	padding: 0.5rem 2rem;
 	border-radius: 4px;
 	border: 2px solid var(--red);
+}
+
+@media all and (min-width: 540px) {
+	input {
+		width: 35%;
+	}
+	.nav-links > a {
+		padding-right: 30px;
+	}
 }

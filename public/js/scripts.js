@@ -81,13 +81,23 @@ function getDoubleDamagePokemon(pokemonTypes) {
 
 // create card elements with Pokemon data
 function createPokemonElements(pokemon, page) {
+
+	console.log(pokemon);
+
 	var $container = $('<div>').addClass('pokemon');
-	var $image = $('<img>').attr('src', pokemon.sprites.front_default);
+	var $image = $('<img>').addClass('pokemon-sprite');
+
+	if (pokemon.sprites.front_default === null) {
+		$image.attr('src', '../img/no-pic.png').addClass('no-pic');
+	} else {
+		$image.attr('src', pokemon.sprites.front_default).addClass('pokemon-sprite');
+	}
+
 	var $title = $('<h2>').text(pokemon.name);
 
-	$container.append($image, $title);
-
 	$('.pokemon-container').append($container);
+
+	$container.append($image, $title);
 
 	if(page === 'search') {
 		var $baseExp = $('<h5>').text('Base Exp: ' + pokemon.base_experience);
@@ -106,8 +116,10 @@ function createPokemonElements(pokemon, page) {
 		});
 
 		$container.append($baseExp, $height, $weight, $itemsList, $abilitiesList);
+	} else {
 
 	}
+
 };
 
 // display Pokemon function
