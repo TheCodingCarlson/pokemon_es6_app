@@ -164,7 +164,7 @@ $('.team-form').on('submit', function(e) {
 
 	// map over the trainer calls, and call fetch with each element
 	let trainerTypeCalls = types.map(elem => {
-		return fetch(`http://pokeapi.co/api/v2/type/${elem}/`, fetchOptions)
+		return fetch(`https://pokeapi.co/api/v2/type/${elem}/`, fetchOptions)
 	});
 
 	// call helper function and convert our data
@@ -191,7 +191,7 @@ $('.search-form').on('submit', function(e) {
 
 	let term = $('#specific-search').val().toLowerCase();
 
-	fetch(`http://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
+	fetch(`https://pokeapi.co/api/v2/pokemon/${term}/`, fetchOptions)
 		.then(res =>  {
 
 			if(res.status === 404) {
