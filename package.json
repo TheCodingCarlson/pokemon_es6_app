@@ -16,7 +16,7 @@
     "url": "https://github.com/TheCodingCarlson/pokemon_es6_app/issues"
   },
   "homepage": "https://github.com/TheCodingCarlson/pokemon_es6_app#readme",
-  "devDependencies": {
+  "dependencies": {
     "express": "^4.14.1",
     "express-hbs": "^1.0.4"
   }

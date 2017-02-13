@@ -15,19 +15,19 @@ app.engine('hbs', hbs.express3({
 }));
 
 app.get('/', function(req, res) {
-	res.render('index');
+	res.render('index.hbs');
 });
 
 app.get('/team', function(req, res) {
-	res.render('team');
+	res.render('team.hbs');
 });
 
 app.get('/search', function(req,res) {
-	res.render('search');
+	res.render('search.hbs');
 });
 
 app.get('/about', function(req,res) {
-	res.render('about');
+	res.render('about.hbs');
 });
 
 app.listen(process.env.PORT || 3000);
