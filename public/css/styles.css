@@ -197,7 +197,7 @@ input:focus {
 .pokemon-sprite.no-pic {
 	height: 70px;
  	width: 70px;
-  margin: 15px 0;
+  margin: 20px 0;
   -webkit-filter: invert(.8);
   filter: invert(.8);
 }
@@ -221,6 +221,9 @@ input:focus {
 }
 
 @media all and (min-width: 540px) {
+	.container {
+		margin-top: 10vh;
+	}
 	input {
 		width: 35%;
 	}
