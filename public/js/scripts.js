@@ -82,10 +82,10 @@ function getDoubleDamagePokemon(pokemonTypes) {
 // create card elements with Pokemon data
 function createPokemonElements(pokemon, page) {
 
-	var $container = $('<div>').addClass('pokemon');
+	let $container = $('<div>').addClass('pokemon');
 
-	var $image = $('<img>').addClass('pokemon-sprite');
-	var $title = $('<h2>').text(pokemon.name);
+	let $image = $('<img>').addClass('pokemon-sprite');
+	let $title = $('<h2>').text(pokemon.name);
 
 	if (pokemon.sprites.front_default === null) {
 		$image.attr('src', '../img/no-pic.png').addClass('no-pic');
@@ -98,7 +98,7 @@ function createPokemonElements(pokemon, page) {
 	//if we are on the search page - display more info
 	if(page === 'search') {
 
-		var $baseStats = $('<ul>').addClass('base-stats-list');
+		let $baseStats = $('<ul>').addClass('base-stats-list');
 
 		$baseStats.append(
 			[
@@ -111,7 +111,7 @@ function createPokemonElements(pokemon, page) {
 		$container.append($baseStats);
 
 		if(pokemon.held_items.length > 0) {
-			var $itemsList = $('<ul>').addClass('items-list').append('<li>Items:</li>');
+			let $itemsList = $('<ul>').addClass('items-list').append('<li>Items:</li>');
 
 			pokemon.held_items.map(item => {
 				$itemsList.append(`<li>${item.item.name}</li>`);
@@ -121,7 +121,7 @@ function createPokemonElements(pokemon, page) {
 		}
 
 		if(pokemon.abilities.length > 0) {
-			var $abilitiesList = $('<ul>').addClass('abilites-list').append('<li>Abilities:</li>');
+			let $abilitiesList = $('<ul>').addClass('abilites-list').append('<li>Abilities:</li>');
 
 			pokemon.abilities.map(ability => {
 				$abilitiesList.append(`<li>${ability.ability.name}</li>`);
@@ -131,7 +131,7 @@ function createPokemonElements(pokemon, page) {
 		}
 
 		if(pokemon.types.length > 0) {
-			var $typesList = $('<ul>').addClass('types-list').append('<li>Types:</li>');
+			let $typesList = $('<ul>').addClass('types-list').append('<li>Types:</li>');
 
 			pokemon.types.map(type => {
 				$typesList.append(`<li>${type.type.name}</li>`);
