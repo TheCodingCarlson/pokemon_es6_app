@@ -181,8 +181,13 @@ input:focus {
 	margin: 10px 15px;
 }
 
+.pokemon p {
+	font-size: 12px;
+	margin: 5px 0;
+}
+
 .pokemon-sprite {
-	margin: 10px;
+	margin: 10px 0 0 0;
 	height: 100px;
 	width: 100px;
 }
@@ -191,6 +196,8 @@ input:focus {
 	height: 70px;
  	width: 70px;
   margin: 15px 0;
+  -webkit-filter: invert(.8);
+  filter: invert(.8);
 }
 
 .btn {
