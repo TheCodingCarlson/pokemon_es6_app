@@ -6,6 +6,8 @@ A simple pokemon app that utilizes new technologies including ES6, Flexbox and n
 
 Based off this awesome ES6 [tutorial](https://www.youtube.com/watch?v=SdBs0CX9MFg) by Ryan Christiani.
 
+[DEMO](https://pokemon-es6-app.herokuapp.com)
+
 Features Used:
 
 * arrow functions
