@@ -83,7 +83,6 @@ function getDoubleDamagePokemon(pokemonTypes) {
 function createPokemonElements(pokemon, page) {
 
 	var $container = $('<div>').addClass('pokemon');
-	$('.pokemon-container').append($container);
 
 	var $image = $('<img>').addClass('pokemon-sprite');
 	var $title = $('<h2>').text(pokemon.name);
@@ -98,11 +97,18 @@ function createPokemonElements(pokemon, page) {
 
 	//if we are on the search page - display more info
 	if(page === 'search') {
-		var $baseExp = $('<p>').text('Base Exp: ' + pokemon.base_experience);
-		var $height = $('<p>').text('Height: ' + pokemon.height);
-		var $weight = $('<p>').text('Weight: ' + pokemon.weight);
 
-		$container.append($baseExp, $height, $weight);
+		var $baseStats = $('<ul>').addClass('base-stats-list');
+
+		$baseStats.append(
+			[
+				`<li>Base Exp: ${pokemon.base_experience}</li>`,
+				`<li>Height: ${pokemon.height}</li>`,
+				`<li>Weight: ${pokemon.weight}</li>`
+			]
+		);
+
+		$container.append($baseStats);
 
 		if(pokemon.held_items.length > 0) {
 			var $itemsList = $('<ul>').addClass('items-list').append('<li>Items:</li>');
@@ -134,6 +140,8 @@ function createPokemonElements(pokemon, page) {
 			$container.append($typesList);
 		}
 	}
+
+	$('.pokemon-container').append($container);
 };
 
 // display Pokemon function

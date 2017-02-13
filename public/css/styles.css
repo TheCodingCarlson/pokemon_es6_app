@@ -79,7 +79,8 @@ body {
 
 h1, h3 {
 	font-family: 'Pokemon Solid';
-	letter-spacing: 5px;
+	font-size: 1.4rem;
+	letter-spacing: 3px;
 	color: var(--yellow);
 	text-shadow: -2px 0 var(--red), 0 2px var(--red), 2px 0 var(--red), 0 -2px var(--red);
 	margin-bottom: 30px;
@@ -177,13 +178,17 @@ input:focus {
 	background: rgba(255,255,255,0.2);
 	border-radius: 4px;
 	border: 2px solid var(--yellow);
-	max-width: 230px;
+	max-width: 250px;
 	margin: 10px 15px;
 }
 
 .pokemon p {
 	font-size: 12px;
 	margin: 5px 0;
+}
+
+.pokemon h2 {
+	margin-bottom: 20px;
 }
 
 .pokemon-sprite {
@@ -215,5 +220,8 @@ input:focus {
 	}
 	.nav-links > a {
 		padding-right: 30px;
+	}
+	h1 {
+		font-size: 2rem;
 	}
 }
